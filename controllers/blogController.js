@@ -4,7 +4,9 @@ const fs = require("fs");
 
 const getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().populate("writtenBy", "username");
+    const blogs = await Blog.find()
+      .sort({ createdAt: -1 })
+      .populate("writtenBy", "username");
     res.status(200).json({ success: true, blogs });
   } catch (error) {
     res.json(error);
